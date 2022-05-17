@@ -10,11 +10,15 @@ router.get("/", function (req, res) {
 });
 
 router.post("/login", function (req, res) {
-  console.log(req.query);
+    console.log("Usuario");
+    console.log(req.query.username);
+    console.log("Contraseña");
+    console.log(req.query.pass);
 
   res.send({
-    username: "",
-    pass: "",
+    token:"token",
+    id_user: "user",
+    succes:"succes"
   });
 });
 
@@ -22,10 +26,9 @@ router.post("/register", function (req, res) {
   console.log(req.query);
 
   res.send({
-    success: "1",
-    email: "2",
-    pass: "3",
-    phone: "4",
+    token:"token",
+    id_user: "user",
+    succes:"succes"
   });
 });
 
