@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "inicio": "node ./api/index.js"
+    "inicio": "nodemon ./api/index.js"
   },
   "author": "Luis Daniel Molina Alfaro",
   "license": "ISC",
