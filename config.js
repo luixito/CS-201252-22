@@ -8,6 +8,6 @@ module.exports = {
     port: "5432",
     password: "232001",
     username: "postgres",
-    database: "CSBD",
+    database: "CSDB",
   },
 };

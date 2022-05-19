@@ -5,8 +5,8 @@ const { getConnection } = require("../../../model/db.js");
 
 const router = expres.Router();
 
-router.get("/register", async function (req, res) {
-  const client = getConnection(); //conexion bd pgSql
+router.post("/register", async function (req, res) {
+  const client = await getConnection(); //conexion bd pgSql
 
   let username = req.query.username;
   let email = req.query.email;
@@ -19,13 +19,12 @@ router.get("/register", async function (req, res) {
   };
 
   //promesa realizada
-  await client
-    .query(query_request)
+  (client).query(query_request)
     .then((r) => {
-      console.log(r.rows);
+      response.success(req,res,r,200);
     })
     .catch((e) => {
-      console.log(e.stack);
+      response.success(req,res,e.detail,200);
     });
 });
 
@@ -46,7 +45,7 @@ router.post("/login", function (req, res) {
   });
 });
 
-router.post("/register", function (req, res) {
+router.post("/registerus", function (req, res) {
   console.log(req.query);
 
   res.send({
