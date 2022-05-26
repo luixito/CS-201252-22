@@ -34,7 +34,7 @@ router.delete("/delete", async function (req, res) {
   let username = req.query.username;
 
   const query_request = {
-    text: `DELETE FROM tbl_usersdb WHERE ${username}`
+    text: `DELETE FROM tbl_usersdb WHERE username = '${username}'`
   };
 
   //promesa realizada
@@ -47,13 +47,13 @@ router.delete("/delete", async function (req, res) {
     });
 });
 
-router.put("/update_user", async function (req, res) {
+router.put("/update_user", async function (req, res, props) {
   const client = await getConnection(); //conexion bd pgSql
 
-  let username = req.query.username;
-  let email = req.query.email;
-  let password = req.query.password;
-  let phone_number = req.query.phone_number;
+  let username = props.username;
+  let email = props.email;
+  let password = props.password;
+  let phone_number = props.phonenumber;
 
   const query_request = {
     text: "UPDATE tbl_usersdb(username, email, password, phone_number) VALUES($1, $2, $3, $4)",

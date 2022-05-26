@@ -1,4 +1,5 @@
 import React,{} from 'react';
+import Seleccion from './seleccion'
 
 function App(){
     return(
