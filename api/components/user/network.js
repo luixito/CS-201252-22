@@ -30,36 +30,37 @@ router.post("/register", async function (req, res) {
     });
 });
 
-router.delete("/delete", async function (req, res) {
+router.put("/delete", async function (req, res) {
   const client = await getConnection(); //conexion bd pgSql
+  console.log(req.query.username);
 
-  let username = req.query.username;
+  const username = req.query.username;
 
   const query_request = {
-    text: `DELETE FROM tbl_usersdb WHERE username = '${username}'`
+    text: `DELETE FROM tbl_usersdb WHERE username = '${username}' ;`
   };
 
   //promesa realizada
   (client).query(query_request)
     .then((r) => {
       response.success(req,res,r,200);
+      console.log(query_request.text);
     })
     .catch((e) => {
       response.success(req,res,e.detail,200);
     });
-});
+});  
 
-router.put("/update_user", async function (req, res, props) {
+router.put("/update_user", async function (req, res) {
   const client = await getConnection(); //conexion bd pgSql
 
-  let username = props.username;
-  let email = props.email;
-  let password = props.password;
-  let phone_number = props.phonenumber;
+  const username = req.query.username;
+  const email = req.query.email;
+  const password = req.query.password;
+  const phone_number = req.query.phone_number;
 
   const query_request = {
-    text: "UPDATE tbl_usersdb(username, email, password, phone_number) VALUES($1, $2, $3, $4)",
-    values: [username, email, password, phone_number],
+    text: `UPDATE tbl_usersdb SET email='${email}', password='${password}', phone_number='${phone_number}' where username='${username}';`
   };
 
   //promesa realizada
@@ -68,7 +69,7 @@ router.put("/update_user", async function (req, res, props) {
       response.success(req,res,r,200);
     })
     .catch((e) => {
-      response.success(req,res,e.detail,200);
+      console.log("todo mal");
     });
 });
 

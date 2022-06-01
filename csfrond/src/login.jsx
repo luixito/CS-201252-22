@@ -1,14 +1,23 @@
 import React from "react";
 import axios from "axios";
+import Profile from './profile.jsx';
 import { useState } from "react";
 
 const Login = () => {
+  const [log, setLog] = useState(true);
   const [state, setState] = useState({
     username: "",
     email: "",
     password: "",
     phone_number: "",
   });
+  const handleLog = () =>{
+    if (log===true) {
+      setLog(false);
+    }else if(log===false){
+      setLog(true);
+    }
+  };
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -54,7 +63,7 @@ const Login = () => {
 
   return (
     <div className="main">
-      <input type="checkbox" id="chk" aria-hidden="true"></input>
+     {log ? <div>  <input type="checkbox" id="chk" aria-hidden="true"></input>
 
       <div className="signup">
         <form onSubmit={handleSubmit}>
@@ -94,15 +103,15 @@ const Login = () => {
       </div>
 
       <div className="login">
-        <form>
+        <form action="./profile.jsx">
           <label for="chk" aria-hidden="true">
             Login
           </label>
           <input
-            type="email"
-            name="email"
-            placeholder="Correo"
-            value={state.email}
+            type="text"
+            name="username"
+            placeholder="Nombre de Usuario"
+            value={state.username}
             onChange={handleChange}
           />
           <input
@@ -112,10 +121,11 @@ const Login = () => {
             value={state.password}
             onChange={handleChange}
           />
-          <button>Login</button>
+          <button onClick={handleLog}>Login</button>
         </form>
       </div>
-    </div>
+      </div> : <Profile></Profile>}
+    </div> 
   );
 };
 
