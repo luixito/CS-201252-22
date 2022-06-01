@@ -1,35 +1,122 @@
 import React from "react";
+import axios from "axios";
 import { useState } from "react";
-import Fetch from './axios.js';
 
-function Login() {
-  const [username, setNewUser] = useState("Articulo");
-  const [pasword, setNewPassword] = useState("Articulo");
-  const [phonenumber, setNewPhone] = useState("Articulo");
-  const [email, setNewEmail] = useState("Articulo");
+const Login = () => {
+  const [state, setState] = useState({
+    username: "",
+    email: "",
+    password: "",
+    phone_number: "",
+  });
 
-  const events = (e) => {
-    setNewUser(e.target.value);
-    setNewPassword(e.target.value);
-    setNewPhone(e.target.value);
-    setNewEmail(e.target.value);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      username: state.username,
+      email: state.email,
+      password: state.password,
+      phone_number: state.phone_number,
+    };
+
+    axios
+      .post("http://localhost:4000/api_v1/user/register",{} ,{params:{
+      username: state.username,
+      email: state.email,
+      password: state.password,
+      phone_number: state.phone_number,
+    }
+    })
+      .then((response) => {
+        console.log(response.status);
+        console.log(userData);
+        console.log(response);
+      })
+      .catch((error) => {
+        if (!error.response) {
+          console.log(error.response);
+          console.log("server respondio");
+        } else if (error.request) {
+          console.log("error");
+        } else {
+          console.log(error);
+        }
+      });
   };
 
   return (
-    <div>
-      <h4>Actualizar datos de cuenta</h4>
-      <h2>ingrese nuevo usuario</h2>
-      <input type="text" onChange={events} />
-      <h2>ingrese nueva contraseña</h2>
-      <input type="text" onChange={events} />
-      <h2>ingrese actualizar telefono</h2>
-      <input type="text" onChange={events} />
-      <h2>ingrese nueva email</h2>
-      <input type="text" onChange={events} />
+    <div className="main">
+      <input type="checkbox" id="chk" aria-hidden="true"></input>
 
-      <Fetch username={username} pasword={pasword} phonenumber={phonenumber} email={email}></Fetch>
+      <div className="signup">
+        <form onSubmit={handleSubmit}>
+          <label for="chk" aria-hidden="true">
+            Registrar
+          </label>
+          <input
+            type="text"
+            name="username"
+            placeholder="Nombre de Usuario"
+            value={state.username}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo"
+            value={state.email}
+            onChange={handleChange}
+          ></input>
+          <input
+            type="text"
+            name="phone_number"
+            placeholder="Telefono"
+            value={state.phone_number}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            value={state.password}
+            onChange={handleChange}
+          />
+          <button>Registrar</button>
+        </form>
+      </div>
+
+      <div className="login">
+        <form>
+          <label for="chk" aria-hidden="true">
+            Login
+          </label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo"
+            value={state.email}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="pswd"
+            placeholder="Contraseña"
+            value={state.password}
+            onChange={handleChange}
+          />
+          <button>Login</button>
+        </form>
+      </div>
     </div>
   );
-}
+};
 
 export default Login;

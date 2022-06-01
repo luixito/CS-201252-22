@@ -8,10 +8,10 @@ const router = expres.Router();
 router.post("/register", async function (req, res) {
   const client = await getConnection(); //conexion bd pgSql
 
-  let username = req.query.username;
-  let email = req.query.email;
-  let password = req.query.password;
-  let phone_number = req.query.phone_number;
+  const username = req.query.username;
+  const email = req.query.email;
+  const password = req.query.password;
+  const phone_number = req.query.phone_number;
 
   const query_request = {
     text: "INSERT INTO tbl_usersdb(username, email, password, phone_number) VALUES($1, $2, $3, $4)",
@@ -22,9 +22,11 @@ router.post("/register", async function (req, res) {
   (client).query(query_request)
     .then((r) => {
       response.success(req,res,r,200);
+      console.log("todo bien");
     })
     .catch((e) => {
-      response.success(req,res,e.detail,200);
+      response.success(req,res,e.detail,200,e.response);
+      console.log("todo mal");
     });
 });
 
@@ -81,10 +83,10 @@ router.post("/login", function (req, res) {
   console.log(req.query.pass);
 
   res.send({
-    token: "token",
+    token: "req.query.username",
     id_user: "user",
     succes: "succes",
-  });
+  })
 });
 
 router.post("/registerus", function (req, res) {

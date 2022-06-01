@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-import {UseState} from "react";
-import {UseEffect} from "react";
+const axios = require('axios');
+const url = "http://localhost:4000/api_v1/user/login";
 
-function Axios() {
-const url = "http://localhost:3000/api_v1";
-
-componentDidMount(){
-  axios.get('http://localhost:8080/empdetails')
-.then(res => {
-  const persons = res.data;
-  this.setState({ persons });
+axios.post(url)
+.then(function (response) {
+  console.log(response);
 })
-}
-  
-}
+.catch(function (error) {
+  console.log(error);
+});
 
-
-export default Axios;
+module.exports = axios;

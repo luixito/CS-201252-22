@@ -4,7 +4,7 @@ import Login from './login'
 function App(){
     return(
         <div>
-         <Login />
+         <Login></Login>
         </div>
     )
 

@@ -11,9 +11,6 @@ function Seleccion(){
         setNewValue(e.target.value);
     }
 
-    
-
-
             return(
             <div>
                 <div className='seleccion'>
