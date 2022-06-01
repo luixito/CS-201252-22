@@ -61,9 +61,9 @@ const Profile = (props) => {
     <div>
     <div className="profile">
       <form onSubmit={handleSubmit}>
-        <label for="chk" aria-hidden="true">
+        <p><label for="chk" aria-hidden="true">
           Actualizar Informacion
-        </label>
+        </label></p>
         <h4>Obligatorio ingresar usuario</h4>
         <input
           type="text"

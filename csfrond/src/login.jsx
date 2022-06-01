@@ -85,7 +85,7 @@ const Login = () => {
             onChange={handleChange}
           ></input>
           <input
-            type="text"
+            type="tel"
             name="phone_number"
             placeholder="Telefono"
             value={state.phone_number}
