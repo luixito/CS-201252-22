@@ -3,15 +3,10 @@ import axios from "axios";
 import { useState } from "react";
 import Delete from "./delete.jsx";
 import Select from "./getInfo.jsx";
+import Swal from 'sweetalert2';
+
 
 const Profile = () => {
-
- const respuesta = ()=>{
-  return(<div>
-      <h4>Solicitud procesada</h4>
-      <h4>relogee para ver los cambios</h4>
-    </div>);
-  }
 
   const [state, setState] = useState({
     username: "",
@@ -64,6 +59,14 @@ const Profile = () => {
           console.log(error);
         }
       });
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Cambio exitoso exitoso',
+        title2: 'Relogee para ver cambios',
+        showConfirmButton: false,
+        timer: 1500
+      });
   };
 
   return (
@@ -102,7 +105,7 @@ const Profile = () => {
           value={state.password}
           onChange={handleChange}
         />
-        <button onClick={respuesta} >Actualizar</button>
+        <button>Actualizar</button>
       </form>
     </div>
     <Delete></Delete>

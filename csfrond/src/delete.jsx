@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import Swal from 'sweetalert2';
+
 
 const Delete = () => {
   const [state, setState] = useState({
@@ -54,6 +56,12 @@ const Delete = () => {
         } else {
           console.log(error);
         }
+      });
+      Swal.fire({
+        icon: 'error',
+        title: 'Eliminado',
+        text: 'Usuario eliminado con exito!',
+        text1: 'Relogee para ver cambios',
       });
   };
 

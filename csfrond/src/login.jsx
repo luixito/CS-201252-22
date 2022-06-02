@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Profile from './profile.jsx';
 import { useState } from "react";
-
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const [log, setLog] = useState(true);
@@ -59,6 +59,13 @@ const Login = () => {
         } else {
           console.log(error);
         }
+      });
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Registro exitoso',
+        showConfirmButton: false,
+        timer: 1000
       });
   };
 

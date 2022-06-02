@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import React from "react";
 import axios from "axios";
 
-function Element(props) {
+function GetInfo(props) {
   const [info, setInfo] = useState([]);
 
   useEffect(() => {
@@ -46,4 +46,4 @@ function Element(props) {
   );
 }
 
-export default Element;
+export default GetInfo;
