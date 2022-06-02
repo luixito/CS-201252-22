@@ -1,124 +1,158 @@
-body{
-	margin: 0;
-	padding: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100vh;
-	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+body {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Jost", sans-serif;
+  background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
-.main{
-	width: 350px;
-	height: 650px;
-	background: red;
-	overflow: hidden;
-	background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
-	border-radius: 10px;
-	box-shadow: 5px 20px 50px #000;
+.main {
+  width: 850px;
+  height: 750px;
+  background: rgb(131, 76, 76);
+  overflow: hidden;
+  background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38")
+    no-repeat center/ cover;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
 }
-#chk{
-	display: none;
+#chk {
+  display: none;
 }
-.signup{
-	position: relative;
-	width:100%;
-	height: 100%;
+.signup {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
-label{
-	color: #fff;
-	font-size: 2.3em;
-	justify-content: center;
-	display: flex;
-	margin-top: 30px;
-	margin-left: 25% auto;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .5s ease-in-out;
+label {
+  color: #fff;
+  font-size: 2.3em;
+  justify-content: center;
+  display: flex;
+  margin-top: 30px;
+  margin-left: 25% auto;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
 }
-input{
-	width: 70%;
-	height: 20px;
-	background: #e0dede;
-	justify-content: center;
-	display: flex;
-	margin: 20px auto;
-	padding: 10px;
-	border: none;
-	outline: none;
-	border-radius: 5px;
+input {
+  width: 40%;
+  height: 40px auto;
+  background: #e0dede;
+  justify-content: center;
+  display: flex;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
-button{
-	width: 60%;
-	height: 40px;
-	margin: 10px auto;
-	justify-content: center;
-	display: block;
-	color: #fff;
-	background: #573b8a;
-	font-size: 1em;
-	font-weight: bold;
-	margin-top: 20px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
-	cursor: pointer;
+button {
+  width: 20%;
+  height: 40px;
+  margin: 10px auto;
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #573b8a;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: 0.2s ease-in;
+  cursor: pointer;
 }
-button:hover{
-	background: #6d44b8;
+button:hover {
+  background: #6d44b8;
 }
-.login{
-	height: 660px;
-	background: #eee;
-	border-radius: 60% / 10%;
-	transform: translateY(190px);
-	transition: .8s ease-in-out;
+.login {
+  height: 760px;
+  background: #eee;
+  border-radius: 60% / 10%;
+  transform: translateY(300px);
+  transition: 0.8s ease-in-out;
 }
-.login label{
-	color: #573b8a;
-	transform: scale(.6);
-}
-
-#chk:checked ~ .login{
-	transform: translateY(-325px);
-}
-#chk:checked ~ .login label{
-	transform: scale(1);	
-}
-#chk:checked ~ .signup label{
-	transform: scale(.6);
+.login label {
+  color: #573b8a;
+  transform: scale(0.6);
 }
 
-.cerrar{
-	width: 35%;
-	height: 30px;
-	margin: 10px auto;
-	justify-content: center;
-	display: block;
-	color: #fff;
-	background: #c01921;
-	font-size: .8em;
-	font-weight: bold;
-	margin-top: 20px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
-	transition: .2s ease-in;
-	cursor: pointer;
+#chk:checked ~ .login {
+  transform: translateY(-300px);
 }
-h4{
-	width: 60%;
-	height: 20px;
-	margin-top: 10px;
-	margin-left: 25% auto;
-	justify-content: center;
-	color: #fff;
-	font-size: .8em;
-	font-weight: bold;
+#chk:checked ~ .login label {
+  transform: scale(1);
 }
-.profile{
-	position:relative;
-	width: 100%;
-	height: 100%;
+#chk:checked ~ .signup label {
+  transform: scale(0.6);
+}
+
+.cerrar {
+  width: 35%;
+  height: 30px;
+  margin: 10 auto;
+
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #c01921;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-top: 20px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: 0.2s ease-in;
+  cursor: pointer;
+}
+h4 {
+  color: #fff;
+  font-size: 15px;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+}
+.profile {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.tabla {
+  margin: 0 auto;
+  justify-content: center;
+  border-collapse: collapse;
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
+}
+
+thead th {
+  width: 25%;
+}
+
+caption {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: left;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+thead {
+  background-color: #333;
+  color: white;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 2%;
 }

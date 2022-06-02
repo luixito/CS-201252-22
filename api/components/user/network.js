@@ -19,13 +19,34 @@ router.post("/register", async function (req, res) {
   };
 
   //promesa realizada
-  (client).query(query_request)
+  client
+    .query(query_request)
     .then((r) => {
-      response.success(req,res,r,200);
+      response.success(req, res, r, 200);
       console.log("todo bien");
     })
     .catch((e) => {
-      response.success(req,res,e.detail,200,e.response);
+      response.success(req, res, e.detail, 200, e.response);
+      console.log("todo mal");
+    });
+});
+
+router.get("/select", async function (req, res) {
+  const client = await getConnection(); //conexion bd pgSql
+
+  const query_request = {
+    text: "SELECT * FROM public.tbl_usersdb;",
+  };
+
+  //promesa realizada
+  client
+    .query(query_request)
+    .then((r) => {
+      response.success(req, res, r, 200);
+      console.log("todo bien");
+    })
+    .catch((e) => {
+      response.success(req, res, e.detail, 200, e.response);
       console.log("todo mal");
     });
 });
@@ -37,19 +58,20 @@ router.put("/delete", async function (req, res) {
   const username = req.query.username;
 
   const query_request = {
-    text: `DELETE FROM tbl_usersdb WHERE username = '${username}' ;`
+    text: `DELETE FROM tbl_usersdb WHERE username = '${username}' ;`,
   };
 
   //promesa realizada
-  (client).query(query_request)
+  client
+    .query(query_request)
     .then((r) => {
-      response.success(req,res,r,200);
+      response.success(req, res, r, 200);
       console.log(query_request.text);
     })
     .catch((e) => {
-      response.success(req,res,e.detail,200);
+      response.success(req, res, e.detail, 200);
     });
-});  
+});
 
 router.put("/update_user", async function (req, res) {
   const client = await getConnection(); //conexion bd pgSql
@@ -60,44 +82,17 @@ router.put("/update_user", async function (req, res) {
   const phone_number = req.query.phone_number;
 
   const query_request = {
-    text: `UPDATE tbl_usersdb SET email='${email}', password='${password}', phone_number='${phone_number}' where username='${username}';`
+    text: `UPDATE tbl_usersdb SET email='${email}', password='${password}', phone_number='${phone_number}' where username='${username}';`,
   };
 
   //promesa realizada
-  (client).query(query_request)
+  client
+    .query(query_request)
     .then((r) => {
-      response.success(req,res,r,200);
+      response.success(req, res, r, 200);
     })
     .catch((e) => {
       console.log("todo mal");
     });
 });
-
-router.get("/succes1", function (req, res) {
-  response.success(req, res, "", 200);
-});
-
-router.post("/login", function (req, res) {
-  console.log("Usuario");
-  console.log(req.query.username);
-  console.log("Contraseña");
-  console.log(req.query.pass);
-
-  res.send({
-    token: "req.query.username",
-    id_user: "user",
-    succes: "succes",
-  })
-});
-
-router.post("/registerus", function (req, res) {
-  console.log(req.query);
-
-  res.send({
-    token: "token",
-    id_user: "user",
-    succes: "succes",
-  });
-});
-
 module.exports = router;

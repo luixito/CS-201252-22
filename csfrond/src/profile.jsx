@@ -2,8 +2,17 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import Delete from "./delete.jsx";
+import Select from "./getInfo.jsx";
 
-const Profile = (props) => {
+const Profile = () => {
+
+ const respuesta = ()=>{
+  return(<div>
+      <h4>Solicitud procesada</h4>
+      <h4>relogee para ver los cambios</h4>
+    </div>);
+  }
+
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -93,10 +102,11 @@ const Profile = (props) => {
           value={state.password}
           onChange={handleChange}
         />
-        <button>Actualizar</button>
+        <button onClick={respuesta} >Actualizar</button>
       </form>
     </div>
     <Delete></Delete>
+    <Select></Select>
     </div>
   );
 };

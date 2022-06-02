@@ -3,6 +3,7 @@ import axios from "axios";
 import Profile from './profile.jsx';
 import { useState } from "react";
 
+
 const Login = () => {
   const [log, setLog] = useState(true);
   const [state, setState] = useState({
@@ -85,7 +86,7 @@ const Login = () => {
             onChange={handleChange}
           ></input>
           <input
-            type="tel"
+            type="number"
             name="phone_number"
             placeholder="Telefono"
             value={state.phone_number}
@@ -124,7 +125,10 @@ const Login = () => {
           <button onClick={handleLog}>Login</button>
         </form>
       </div>
-      </div> : <Profile></Profile>}
+      </div> : (<div>
+      <Profile></Profile>
+      <button onClick={handleLog}>Cerrar Sesion</button>
+      </div>)}
     </div> 
   );
 };
