@@ -92,7 +92,7 @@ const Profile = () => {
           onChange={handleChange}
         ></input>
         <input
-          type="text"
+          type="number"
           name="phone_number"
           placeholder="Telefono"
           value={state.phone_number}

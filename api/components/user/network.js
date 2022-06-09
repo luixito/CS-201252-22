@@ -1,98 +1,183 @@
-//microservicio privado
-const expres = require("express");
-const response = require("../../../network/response.js");
-const { getConnection } = require("../../../model/db.js");
+import { Router } from "express";
+import { success } from "../../network/response.js";
+import { getData } from "../../model/db.js";
+import { getUser } from "../../model/Users.js";
 
-const router = expres.Router();
+const router = Router();
+
+router.get("/check", function (req, res) {
+  res.send({
+    success: "exito funciona",
+  });
+});
+
+router.get("/all_users_orm", async function (reg, res) {
+  getUser
+    .findAll({ attributes: ["username", "email", "password", "phone_number"] })
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 router.post("/register", async function (req, res) {
-  const client = await getConnection(); //conexion bd pgSql
+  const client = await getConnection();
 
-  const username = req.query.username;
-  const email = req.query.email;
-  const password = req.query.password;
-  const phone_number = req.query.phone_number;
+  let username = req.query.username;
+  let email = req.query.email;
+  let password = req.query.password;
+  let phone_number = req.query.phone_number;
 
   const query_request = {
     text: "INSERT INTO tbl_usersdb(username, email, password, phone_number) VALUES($1, $2, $3, $4)",
     values: [username, email, password, phone_number],
   };
 
-  //promesa realizada
-  client
+  (await client)
     .query(query_request)
     .then((r) => {
-      response.success(req, res, r, 200);
-      console.log("todo bien");
+      success(req, res, r, 200);
     })
     .catch((e) => {
-      response.success(req, res, e.detail, 200, e.response);
-      console.log("todo mal");
+      success(req, res, e.detail, 200);
     });
 });
-
-router.get("/select", async function (req, res) {
-  const client = await getConnection(); //conexion bd pgSql
+router.get("/mostrar", async function (req, res) {
+  const client = await getConnection();
 
   const query_request = {
-    text: "SELECT * FROM public.tbl_usersdb;",
+    text: "SELECT * FROM public.tbl_usersdb",
   };
 
-  //promesa realizada
-  client
+  (await client)
     .query(query_request)
     .then((r) => {
-      response.success(req, res, r, 200);
-      console.log("todo bien");
+      success(req, res, r, 200);
     })
     .catch((e) => {
-      response.success(req, res, e.detail, 200, e.response);
-      console.log("todo mal");
+      success(req, res, e.detail, 200);
     });
 });
 
-router.put("/delete", async function (req, res) {
-  const client = await getConnection(); //conexion bd pgSql
-  console.log(req.query.username);
+router.delete("/eliminar", async function (req, res) {
+  const client = await getConnection();
 
-  const username = req.query.username;
+  let id = req.query.id;
 
   const query_request = {
-    text: `DELETE FROM tbl_usersdb WHERE username = '${username}' ;`,
+    text: `DELETE FROM tbl_usersdb WHERE id=${id}`,
   };
 
-  //promesa realizada
-  client
+  (await client)
     .query(query_request)
     .then((r) => {
-      response.success(req, res, r, 200);
-      console.log(query_request.text);
+      success(req, res, r, 200);
     })
     .catch((e) => {
-      response.success(req, res, e.detail, 200);
+      success(req, res, e.detail, 200);
     });
 });
 
-router.put("/update_user", async function (req, res) {
-  const client = await getConnection(); //conexion bd pgSql
+router.put("/actualizar", async function (req, res) {
+  const client = await getConnection();
 
-  const username = req.query.username;
-  const email = req.query.email;
-  const password = req.query.password;
-  const phone_number = req.query.phone_number;
+  let id = req.query.id;
+  let username = req.query.username;
+  let email = req.query.email;
+  let password = req.query.password;
+  let phone_number = req.query.phone_number;
 
   const query_request = {
-    text: `UPDATE tbl_usersdb SET email='${email}', password='${password}', phone_number='${phone_number}' where username='${username}';`,
+    text: `UPDATE tbl_usersdb SET username = '${username}', email = '${email}' , password = '${password}' , phone_number = '${phone_number}' where id = '${id}'`,
   };
 
-  //promesa realizada
-  client
+  (await client)
     .query(query_request)
     .then((r) => {
-      response.success(req, res, r, 200);
+      success(req, res, r, 200);
     })
     .catch((e) => {
-      console.log("todo mal");
+      success(req, res, e.detail, 200);
     });
 });
-module.exports = router;
+
+router.patch("/name", async function (req, res) {
+  const client = await getConnection();
+
+  let id = req.query.id;
+  let username = req.query.username;
+
+  const query_request = {
+    text: `UPDATE tbl_usersdb SET username = '${username}' where id = '${id}'`,
+  };
+
+  (await client)
+    .query(query_request)
+    .then((r) => {
+      success(req, res, r, 200);
+    })
+    .catch((e) => {
+      success(req, res, e.detail, 200);
+    });
+});
+router.patch("/email", async function (req, res) {
+  const client = await getConnection();
+
+  let id = req.query.id;
+  let email = req.query.email;
+
+  const query_request = {
+    text: `UPDATE tbl_usersdb SET email = '${email}'  where id = '${id}'`,
+  };
+
+  (await client)
+    .query(query_request)
+    .then((r) => {
+      success(req, res, r, 200);
+    })
+    .catch((e) => {
+      success(req, res, e.detail, 200);
+    });
+});
+router.patch("/pass", async function (req, res) {
+  const client = await getConnection();
+
+  let id = req.query.id;
+  let password = req.query.password;
+
+  const query_request = {
+    text: `UPDATE tbl_usersdb SET password = '${password}'  where id = '${id}'`,
+  };
+
+  (await client)
+    .query(query_request)
+    .then((r) => {
+      success(req, res, r, 200);
+    })
+    .catch((e) => {
+      success(req, res, e.detail, 200);
+    });
+});
+router.patch("/phone", async function (req, res) {
+  const client = await getConnection();
+
+  let id = req.query.id;
+  let phone_number = req.query.phone_number;
+
+  const query_request = {
+    text: `UPDATE tbl_usersdb SET  phone_number = '${phone_number}' where id = '${id}'`,
+  };
+
+  (await client)
+    .query(query_request)
+    .then((r) => {
+      success(req, res, r, 200);
+    })
+    .catch((e) => {
+      success(req, res, e.detail, 200);
+    });
+});
+
+export default router;

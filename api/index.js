@@ -1,12 +1,14 @@
-const expres = require("express");
-const config = require("../config.js");
-const user = require("./components/user/network");
-const app = expres();
+import express from "express";
+import { api } from "../config.js";
+import user from "../components/user/network.js";
+
+const app = express();
 
 // router(micro servicio publico)
-app.use("/api_v1/user", user);
+app.use("/api/user", user);
 
 //levanta el servidor
-app.listen(config.api.port, () => {
-  console.log(`api funcionando => ${config.api.port}`);
+
+app.listen(api.port, () => {
+  console.log("Servidor corriendo en el puerto en el puerto =>", api.port);
 });
