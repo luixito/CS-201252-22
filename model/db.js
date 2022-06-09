@@ -5,7 +5,7 @@ import { db } from "../config.js";
 
 async function getConnection() {
   const client = new Pool({
-    user: db.user,
+    username: db.username,
     host: db.host,
     database: db.database,
     password: db.password,
@@ -15,7 +15,13 @@ async function getConnection() {
   return client;
 }
 
-const sequelizeClient = new Sequelize(db.database, db.user, db.password, {
+const sequelizeClient = new Sequelize(db.database, db.username, db.password, {
+  dialectOptions:{
+    ssl:{
+      require:true,
+      rejectUnauthorized:false,
+    }
+  },
   host: db.host,
   dialect: "postgres",
 });
@@ -25,8 +31,9 @@ sequelizeClient
   .then(() => {
     console.log("conectado");
   })
-  .catch(() => {
+  .catch((err) => {
     console.log("No conecto!");
+    console.log(err)
   });
 
 export const getData = { getConnection, sequelizeClient };

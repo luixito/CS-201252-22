@@ -8,7 +8,7 @@ function GetInfo(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api_v1/user/select/")
+      .get("http://localhost:4000/api_v1/user//all_users_orm/")
       .then((res) => {
         console.log(res.data);
         setInfo(res.data.statusMessage.rows);
