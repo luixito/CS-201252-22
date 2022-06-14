@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { success } from "../../../network/response.js";
-import { getData } from "../../../model/db.js";
 import { getUser } from "../../../model/Users.js";
 
 const router = Router();
@@ -10,7 +9,7 @@ router.get("/all_users_orm", async function (req, res) {
     .findAll({ attributes: ["username", "email", "password", "phone_number"] })
     .then((users) => {
       res.send(users);
-      console.log(res)
+
     })
     .catch((err) => {
       console.log(err);
