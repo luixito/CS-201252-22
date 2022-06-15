@@ -14,11 +14,10 @@ router.get("/check", function (req, res) {
 router.get("/all_users_orm", async function (reg, res) {
   getUser
     .findAll({
-      attributes: ["name", "lastname", "email", "password", "phone_number"],
+      attributes: ["name", "lastName", "email", "password", "phone_number"],
     })
     .then((users) => {
       res.send(users);
-      res.send(success);
     })
     .catch((err) => {
       console.log(err);
@@ -30,16 +29,15 @@ router.post("/insert", async function (req, res) {
     .create(
       {
         name: req.query.name,
-        lastname: req.query.lastname,
+        lastName: req.query.lastName,
         email: req.query.email,
         password: req.query.password,
         phone_number: req.query.phone_number,
       },
-      { fields: ["name", "lastname", "email", "password", "phone_number"] }
+      { fields: ["name", "lastName", "email", "password", "phone_number"] }
     )
     .then((users) => {
       res.send(users);
-      res.send(success);
     })
     .catch((err) => {
       console.log(err);
