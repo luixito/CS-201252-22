@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { success } from "./response.js";
 import { getUser } from '../model/users.js'
-import { getProfile } from '../model/profile.js'
+
 
 const router = Router();
 
