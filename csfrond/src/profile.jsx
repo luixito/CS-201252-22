@@ -1,13 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import Delete from "./delete.jsx";
-import Select from "./getInfo.jsx";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 const Profile = () => {
-
   const [state, setState] = useState({
     username: "",
     email: "",
@@ -34,7 +30,8 @@ const Profile = () => {
 
     axios
       .put(
-        "http://localhost:4000/api_v1/user/update_user",{},
+        "http://localhost:4000/api_v1/user/update_user",
+        {},
         {
           params: {
             username: state.username,
@@ -54,62 +51,62 @@ const Profile = () => {
           console.log(error.response);
           console.log("server respondio");
         } else if (error.request) {
-            console.log("error");
+          console.log("error");
         } else {
           console.log(error);
         }
       });
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Cambio exitoso exitoso',
-        title2: 'Relogee para ver cambios',
-        showConfirmButton: false,
-        timer: 1500
-      });
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Cambio exitoso exitoso",
+      title2: "Relogee para ver cambios",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
     <div>
-    <div className="profile">
-      <form onSubmit={handleSubmit}>
-        <p><label for="chk" aria-hidden="true">
-          Actualizar Informacion
-        </label></p>
-        <h4>Obligatorio ingresar usuario</h4>
-        <input
-          type="text"
-          name="username"
-          placeholder="Nombre de Usuario"
-          value={state.username}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder="Correo"
-          value={state.email}
-          onChange={handleChange}
-        ></input>
-        <input
-          type="number"
-          name="phone_number"
-          placeholder="Telefono"
-          value={state.phone_number}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Contraseña"
-          value={state.password}
-          onChange={handleChange}
-        />
-        <button>Actualizar</button>
-      </form>
-    </div>
-    <Delete></Delete>
-    <Select></Select>
+      <div className="profile">
+        <form onSubmit={handleSubmit}>
+          <p>
+            <label for="chk" aria-hidden="true">
+              Actualizar Informacion
+            </label>
+          </p>
+          <h4>Obligatorio ingresar usuario</h4>
+          <input
+            type="text"
+            name="username"
+            placeholder="Nombre de Usuario"
+            value={state.username}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="email"
+            placeholder="Correo"
+            value={state.email}
+            onChange={handleChange}
+          ></input>
+          <input
+            type="number"
+            name="phone_number"
+            placeholder="Telefono"
+            value={state.phone_number}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            value={state.password}
+            onChange={handleChange}
+          />
+          <button>Actualizar</button>
+        </form>
+      </div>
     </div>
   );
 };
