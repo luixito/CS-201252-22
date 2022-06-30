@@ -48,10 +48,13 @@ router.post("/insert", async function (req, res) {
 
 //get e insert hijo
 
-router.get("/gethijo", async function (reg, res) {
+router.get("/gethijo", async function (req, res) {
   getHijo
     .findAll({
-      attributes: ["nombre", "paterno", "materno", "edad", "idpadre"],
+      where: {
+        padreId: req.query.padreId
+    },
+      attributes: ["nombre", "paterno", "materno", "edad", "padreId"],
     })
     .then((users) => {
       res.send(users);
@@ -69,8 +72,9 @@ router.post("/inserthijo", async function (req, res) {
         paterno: req.query.paterno,
         materno: req.query.materno,
         edad: req.query.edad,
+        padreId: req.query.padreId,
       },
-      { fields: ["nombre", "paterno", "materno", "edad"] }
+      { fields: ["nombre", "paterno", "materno", "edad", "padreId"] }
     )
     .then((users) => {
       res.send(users);
@@ -82,9 +86,12 @@ router.post("/inserthijo", async function (req, res) {
 
 //get insert padre
 
-router.get("/getpadre", async function (reg, res) {
+router.get("/getpadre", async function (req, res) {
   getPadre
     .findAll({
+      where: {
+        usuarioId: req.query.userId
+    },
       attributes: ["nombre", "paterno", "materno", "edad", "usuarioId"],
     })
     .then((users) => {
@@ -104,8 +111,9 @@ router.post("/insertpadre", async function (req, res) {
         paterno: req.query.paterno,
         materno: req.query.materno,
         edad: req.query.edad,
+        usuarioId: req.query.usuarioId
       },
-      { fields: ["nombre", "paterno", "materno", "edad"] }
+      { fields: ["nombre", "paterno", "materno", "edad","usuarioId"] }
     )
     .then((users) => {
       res.send(users);
@@ -115,11 +123,27 @@ router.post("/insertpadre", async function (req, res) {
     });
 });
 
+router.delete('/deletepadre', async function (req, res) {
+  await getPadre.destroy({
+      where: {
+          usuarioId: req.query.usuarioId
+      }
+  })
+  .then((users) => {
+    res.send(users);
+    console.log("Eliminado")
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+})
+
 //get insert usuario
 router.post("/insertusuario", async function (req, res) {
-  getPadre
+  getUsuario
     .create(
       {
+        
         password: req.query.password,
         nombre: req.query.nombre,
       },
@@ -132,4 +156,33 @@ router.post("/insertusuario", async function (req, res) {
       console.log(err);
     });
 });
+
+router.get("/getusuario", async function (req, res) {
+  getUsuario
+    .findAll({
+      attributes: ["id","password", "nombre"],
+    })
+    .then((users) => {
+      res.send(users);
+      console.log(users);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.delete('/deleteusuario', async function (req, res) {
+  await getUsuario.destroy({
+      where: {
+          id: req.query.id
+      }
+  })
+  .then((users) => {
+    res.send(users);
+    console.log("Eliminado")
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+})
 export default router;

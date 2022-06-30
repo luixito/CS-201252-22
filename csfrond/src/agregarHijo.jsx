@@ -9,7 +9,7 @@ const Profile = (id) => {
     paterno: "",
     materno: "",
     edad: "",
-    usuarioId:id.id,
+    padreId:id.id,
   });
 
   const handleChange = (e) => {
@@ -27,12 +27,12 @@ const Profile = (id) => {
       paterno: state.paterno,
       materno: state.materno,
       edad: state.edad,
-      usuarioId: id.id,
+      padreId: id.id,
     };
 
     axios
       .post(
-        "http://localhost:3000/api/user/insertpadre",
+        "http://localhost:3000/api/user/inserthijo",
         {},
         {
           params: {
@@ -40,7 +40,7 @@ const Profile = (id) => {
             paterno: state.paterno,
             materno: state.materno,
             edad: state.edad,
-            usuarioId: state.usuarioId,
+            padreId: state.padreId,
           },
         }
       )
@@ -74,13 +74,13 @@ const Profile = (id) => {
         <form onSubmit={handleSubmit}>
           <p>
             <label for="chk" aria-hidden="true">
-              Agregar Padre
+              Agregar Hijo
             </label>
           </p>
           <input
             type="text"
             name="nombre"
-            placeholder="Nombre del padre"
+            placeholder="Nombre del hijo"
             value={state.nombre}
             onChange={handleChange}
           />
@@ -105,7 +105,6 @@ const Profile = (id) => {
             value={state.edad}
             onChange={handleChange}
           />
-
           <button>Agregar</button>
         </form>
       </div>

@@ -11,24 +11,20 @@ const Padre = getData.sequelizeClient.define("padre", {
   },
   nombre: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   paterno: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   materno: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
   edad: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
 });
 
 Padre.hasMany(getHijo, {
-  foreignkey: "hijoid",
+  foreignkey: "padreId",
 });
 
 getHijo.belongsTo(Padre);

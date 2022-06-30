@@ -1,7 +1,7 @@
 import { getData } from "./db.js";
 import { DataTypes } from 'sequelize';
 import { getPadre } from '../model/padres.js';
-
+import bcrypt from 'bcrypt';
 
 const Usuario = getData.sequelizeClient.define(
   "usuario",
@@ -38,7 +38,7 @@ const Usuario = getData.sequelizeClient.define(
 );
 
 Usuario.hasMany(getPadre, {
-    foreignkey:"userid"
+    foreignkey:"usuarioId"
 });
 
 getPadre.belongsTo(Usuario);

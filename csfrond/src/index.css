@@ -9,12 +9,10 @@ body {
   background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 .main {
-  width: 850px;
-  height: 750px;
-  background: rgb(131, 76, 76);
+  width: auto;
+  height: auto;
+  background: linear-gradient(to bottom, #3b300b, #8e7931, #594e2d);
   overflow: hidden;
-  background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38")
-    no-repeat center/ cover;
   border-radius: 10px;
   box-shadow: 5px 20px 50px #000;
 }
@@ -50,7 +48,7 @@ input {
   border-radius: 5px;
 }
 button {
-  width: 20%;
+  width: 20% auto;
   height: 40px;
   margin: 10px auto;
   justify-content: center;
@@ -114,35 +112,18 @@ h4 {
 
 th,
 td {
-  border: 1px solid black;
-  padding: 8px;
+  border: 2px solid black;
+}
+
+td {
+  background: grey;
 }
 
 .tabla {
-  margin: 0 auto;
+  background-color: #7c5959;
+  overflow-y: auto;
   justify-content: center;
   border-collapse: collapse;
-  border: 1px solid black;
   text-align: center;
-  vertical-align: middle;
-}
-
-thead th {
-  width: 25%;
-}
-
-caption {
-  font-weight: bold;
-  font-size: 24px;
-  text-align: left;
-  color: #333;
-  margin-bottom: 16px;
-}
-
-thead {
-  background-color: #333;
-  color: white;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 2%;
+  position: relative;
 }

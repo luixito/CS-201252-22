@@ -7,22 +7,22 @@ const Delete = ({ id }) => {
   const [idobjetivo, setId] = useState(id);
 
   const handleChange = (e) => {
-    setId(id);
+    setId(id.id);
   };
 
   const handleSubmit = (e) => {
     handleChange();
     e.preventDefault();
     const userData = {
-      id: idobjetivo,
+      usuarioId: idobjetivo,
     };
 
     axios.delete(
-        `http://localhost:3000/api/user/deleteusuario?id=${userData.id}`,
+        `http://localhost:3000/api/user/deletepadre?usuarioId=${userData.usuarioId}`,
         {},
         {
           params: {
-            id: userData.id,
+            usuarioId: userData.usuarioId,
           },
         }
       )

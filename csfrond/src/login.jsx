@@ -27,11 +27,11 @@ const Login = () => {
 
     axios
       .post(
-        "http://localhost:4000/api_v1/user/register",
+        "http://localhost:3000/api/user/insertusuario",
         {},
         {
           params: {
-            username: state.username,
+            nombre: state.username,
             password: state.password,
           },
         }
@@ -40,6 +40,13 @@ const Login = () => {
         console.log(response.status);
         console.log(userData);
         console.log(response);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Registro exitoso",
+          showConfirmButton: false,
+          timer: 1000,
+        });
       })
       .catch((error) => {
         if (!error.response) {
@@ -51,13 +58,6 @@ const Login = () => {
           console.log(error);
         }
       });
-    Swal.fire({
-      position: "top-end",
-      icon: "success",
-      title: "Registro exitoso",
-      showConfirmButton: false,
-      timer: 1000,
-    });
   };
 
   return (
