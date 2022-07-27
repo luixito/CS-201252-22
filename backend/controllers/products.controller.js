@@ -20,9 +20,9 @@ const produc_view = async function (req, res) {
     });
 };
 
-const produc_create = async function (req, res, upload) {
+const produc_create =  function (req, res, upload) {
   upload.single("name");
-  getProduc.products
+   getProduc.products
     .create(
       {
         name: req.file.originalname,
