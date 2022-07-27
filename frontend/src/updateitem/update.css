@@ -1,0 +1,38 @@
+.general {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  margin-top: 2%;
+}
+
+.cantidad {
+  width: 90%;
+  margin-right: 100px;
+  margin-left: auto;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  margin-top: 2%;
+}
+
+.text-white {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+}
+
+.fw-normal {
+  font-weight: 400 !important;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.boton{
+  color: #6c757d;
+  background-color: transparent;
+}
