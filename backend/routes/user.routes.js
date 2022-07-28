@@ -135,7 +135,6 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
  *        description: Not Found
  */
 
-
 /**
  * @openapi
  * '/api/user/auten_acount':
@@ -178,11 +177,15 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
  *           schema:
  *            type: object
  *            required:
+ *              - authen
  *              - email
  *            properties:
  *              email:
  *                type: string
  *                default: 201252@ids.upchiapas.edu.mx
+ *              authen:
+ *                type: string
+ *                default: true
  *     responses:
  *      200:
  *        description: update
@@ -206,7 +209,7 @@ router.post("/auten_acount", (req, res) =>
   userController.auten_acount(req, res)
 );
 
-router.put("/update", (req, res) =>
+router.put("/update_pass", (req, res) =>
   userController.user_update_pass(req, res)
 );
 

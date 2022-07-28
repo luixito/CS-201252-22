@@ -2,7 +2,6 @@ import "../register/register.css";
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Auten_acount = () => {
@@ -60,6 +59,17 @@ const Auten_acount = () => {
             <label className="label " aria-hidden="true">
               Change pass
             </label>
+            <label class="b-contain">
+              <span class="b-contain">Agregue su correo de cuenta</span>
+            </label>
+            <input
+          className="inp"
+            type="text"
+            name="email"
+            placeholder="Correo"
+            value={state.email}
+            onChange={handleChange}
+          />
             <label class="b-contain">
               <span class="b-contain">Agregue su nueva contraseña</span>
             </label>

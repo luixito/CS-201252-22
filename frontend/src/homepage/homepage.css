@@ -1,3 +1,8 @@
+.div{
+  flex: 0 0 auto;
+  width: 30%;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -7301,7 +7306,7 @@ fieldset:disabled .btn {
 }
 
 .w-100 {
-  width: 100% !important;
+  width: 30% !important;
 }
 
 .w-auto {
@@ -7334,6 +7339,9 @@ fieldset:disabled .btn {
 
 .h-100 {
   height: 100% !important;
+}
+.w22 {
+  width: 50 !important;
 }
 
 .h-auto {

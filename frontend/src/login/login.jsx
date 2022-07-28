@@ -4,9 +4,10 @@ import axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import Register from "../register/register.jsx";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 const Login = () => {
+  const nav = useNavigate()
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -37,14 +38,21 @@ const Login = () => {
         response = userData;
         console.log(response);
         Swal.fire({
-          position: "top-end",
           icon: "success",
           title: "Login exitoso",
           showConfirmButton: false,
           timer: 1000,
         });
+        nav('/home');
       })
       .catch((error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Usuario o contrasela equivocado!',
+          showConfirmButton: false,
+          timer: 1500,
+        })
         if (!error.response) {
           console.log(error.response);
           console.log("server respondio");
@@ -86,7 +94,9 @@ const Login = () => {
             value={state.password}
             onChange={handleChange}
           />
-          <Link to="/home" className="button">Login</Link>
+          <button className="button">
+              Login
+            </button>
         </form>
         <Link to="/recovery"className="button" >Recuperar Contraseña</Link>
         

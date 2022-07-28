@@ -6,23 +6,25 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 
 const Auten_acount = () => {
-  const [state, setState] = useState({
-    authen: true,
-    email: "",
-  });
+  const [authen] = useState(true);
+  const [email, setEmail]= useState(""); 
   const [habilita, setHabilita] = useState(true);
 
   const handleChange = (e) => {
-    setState(true);
-    setHabilita(!habilita);
+    setEmail(e.target.value);
   };
+
+  const handleCheck =(e) =>{
+    setHabilita(!habilita);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
       .put("http://localhost:3000/api/user/update", {
-        authen: state.authen,
-        email: state.email,
+        authen: authen,
+        email: email,
       })
       .then((response) => {
         console.log(response.status, "llegamos bien");
@@ -63,12 +65,12 @@ const Auten_acount = () => {
               type="email"
               name="email"
               placeholder="Correo"
-              value={state.email}
+              value={email}
               onChange={handleChange}
             ></input>
             <label class="b-contain">
               <span>Acepta terminos de uso y condiciones</span>
-              <input type="checkbox" onChange={handleChange}></input>
+              <input type="checkbox" onChange={handleCheck}></input>
               <div class="b-input"></div>
             </label>
             <button className="button" disabled={habilita}>

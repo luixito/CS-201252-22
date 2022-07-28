@@ -1,51 +1,73 @@
 import React from "react";
-import axios from "axios";
 import { useState as State } from "react";
-import { useEffect as Effect } from "react";
+import { useEffect as uEffect } from "react";
 import DelInfo from "./DelProduc.jsx";
-import Update from "../updateitem/update.jsx";
-import { useModal as Umodal } from "../modal/useModal.js";
+import { useModal as Mol } from "../modal/useModal.js";
 import Modal from "../modal/modal.js";
+import Update from "../updateitem/update";
 
 const product = () => {
-  const [abrir, abrirModal, cerrarModal] = Umodal(false);
-  const GetInfo = () => {
-    const [item, setItem] = State([]);
+  const [abrir, abrirModal, cerrarModal] = Mol(false);
+  const [error, setError] = State(null);
+  const [isLoaded, setIsLoaded] = State(false);
+  const [productos, setProductos] = State([]);
 
-    Effect(() => {
-      axios
-        .get("http://localhost:3000/api/product/view")
-        .then((res) => {
-          setItem(res.data);
-          console.log(item.name);
-        })
-        .catch((res, err) => {
-          console.log(err);
-          console.log(res);
-        });
-    }, []);
+  uEffect(() => {
+    fetch("http://localhost:3000/api/product/view")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setProductos(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
 
+  const renderProducto = () => {
     return (
       <div>
-        {item.map((item) => (
-          <div key={item.name} class="col mb-5">
+        {productos.map((product, index) => (
+          <div class="col mb-5 ">
             <div class="card h-100">
-              <img
-                
-                alt="..."
-              /><source className="card-img-top" src={`../../../backend/assets/img/${item.name}`}></source>
-              <div class="card-body p-4">
+              <img className="card-img-top" src={product.name} />
+              <div class="card-body p-4 w-22">
                 <ul className="cabeza">
                   <div className="text-center">
-                    <h5 className="fw-bolder">{item.description}</h5>
-                    {item.price}$
+                    <h5 className="fw-bolder">{product.nameProduc}</h5>
+                    <span className="fw-bolder">{product.description}</span>$
+                    {product.price}
+                    <span className="pe-3 text-muted"> Stock:</span>
+                    <span className="pe-3">{product.amount}</span>
                   </div>
                   <div className="divchido">
-                  <DelInfo id={item.id}></DelInfo>
-                  <button className="btn btn-outline-dark" onClick={abrirModal}>update</button>
-                  <Modal abierto={abrir} cerrarModal={cerrarModal}>
-                    {<Update id={item.id}></Update>}
-                  </Modal>
+                    <tr>
+                      <td>
+                        <DelInfo id={product.id}></DelInfo>
+                      </td>
+                      <td>
+                        <button
+                          className="btn btn-outline-dark"
+                          onClick={abrirModal}
+                        >
+                          editar
+                        </button>
+                        <Modal abierto={abrir} cerrarModal={cerrarModal}>
+                          {
+                            <Update
+                              nameProduc={product.nameProduc}
+                              price={product.price}
+                              id={product.id}
+                              amount={product.amount}
+                              description={product.description}
+                            ></Update>
+                          }
+                        </Modal>
+                      </td>
+                    </tr>
                   </div>
                 </ul>
               </div>
@@ -56,8 +78,10 @@ const product = () => {
       </div>
     );
   };
-
-  return <GetInfo></GetInfo>;
+  return (
+    <div className="div">
+      <table className="table table-borderless">{renderProducto()}</table>
+    </div>
+  );
 };
-
 export default product;

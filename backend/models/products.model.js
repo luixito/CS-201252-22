@@ -14,6 +14,15 @@ const products = getData.sequelizeClient.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    nameProduc:{
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "ingrese una descripcion",
+        },
+      }
+    },
     description: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,6 +50,15 @@ const products = getData.sequelizeClient.define(
         },
       },
     },
+    nameProduc: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Ingrese nombre del producto",
+        },
+      },
+    }
   },
   {
     tableName: "cat_products",

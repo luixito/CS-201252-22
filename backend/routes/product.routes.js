@@ -9,16 +9,7 @@ const jsonParser = bodyParser.json();
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./assets/img");
-  },
-  filename: (req, file, cb) => {
-    const ext = file.originalname.split(".").pop();
-    cb(null, `${file.originalname}`);
-  },
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 /**
@@ -36,6 +27,7 @@ const upload = multer({ storage });
  *            type: object
  *            required:
  *              - name
+ *              - nameProduc
  *              - description
  *              - price
  *              - amount
@@ -43,7 +35,10 @@ const upload = multer({ storage });
  *              name:
  *                type: string
  *                format: binary
- *                default: img
+ *                default: name
+ *              nameProduc:
+ *                 type: string
+ *                 default: lol
  *              description:
  *                type: string
  *                default: producto descripcion
@@ -160,4 +155,20 @@ router.delete("/delete", (req, res) =>
   producController.Product_delete(req, res, upload)
 );
 
+/**
+ * @openapi
+ * '/api/product/img':
+ *  get:
+ *     tags:
+ *     - Product
+ *     summary: visualizar img
+ *     responses:
+ *      200:
+ *        description: update
+ *      400:
+ *        description: Bad Request
+ *      404:
+ *        description: Not Found
+ */
+ router.get("/img", (req, res) => producController.getImage(req, res));
 export default router;

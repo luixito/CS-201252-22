@@ -3,97 +3,100 @@ import axios from "axios";
 import { useState as State } from "react";
 import "./update.css";
 
-function Update(props) {
-  var imagen;
-  const [state, setState] = State({
-    id: props.id,
-    name: "hola mundo",
-    description: "",
-    price: "",
-    amount: "",
-  });
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setState({
-      ...state,
-      [e.target.name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const userData = {
-      id: props.id,
-      name: state.name,
-      description: state.description,
-      price: state.price,
-      amount: state.amount,
+class EditProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: null,
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-    axios
-      .put(`http://localhost:3000/api/product/update`, {
-        id: userData.id,
-        nombre: userData.name,
-        des: userData.description,
-        pres: userData.price,
-        cant: userData.amount,
-      })
-      .then((res) => {
-        console.log("resgood", res);
-      })
-      .catch((res) => {
-        console.log("no llega");
-        console.log(res);
-      });
+  handleSubmit = (event) => {
+    var formdata = new FormData();
+    formdata.append("id", this.props.id);
+    console.log(this.props.id);
+    formdata.append("nameProduc", document.getElementById("titulo").value);
+    formdata.append(
+      "description",
+      document.getElementById("descripcion").value
+    );
+    formdata.append("price", document.getElementById("precio").value);
+    formdata.append("amount", document.getElementById("cantidad").value);
+
+    var requestOptions = {
+      method: "PUT",
+      body: formdata,
+      redirect: "follow",
+    };
+    fetch("http://localhost:3000/api/product/update", requestOptions)
+      .then((res) => res.json)
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
   };
-  return (
-    <form onSubmit={handleSubmit}>
-      <p className=" lead fw-normal text-white">description</p>
-      <input
-        className="general mb-2"
-        type="text"
-        name="description"
-        value={state.description}
-        onChange={handleChange}
-      />
-      <p className="lead fw-normal text-white">imagen</p>
-      <input
-        value={imagen}
-        onChange={handleChange}
-        className="general mb-2"
-        type="file"
-        placeholder="Select a File"
-      />
-      <td>
-        <tr>
-          <p className="lead fw-normal text-white">cantidad</p>
-          <input
-            value={state.amount}
-            onChange={handleChange}
-            className="cantidad mb-2"
-            type="number"
-            name="amount"
-          />
-        </tr>
-      </td>
-      <td>
-        <tr>
-          <p className="lead fw-normal text-white">precio</p>
-          <input
-            value={state.price}
-            onChange={handleChange}
-            className="cantidad mb-2"
-            type="number"
-            name="price"
-          />
-        </tr>
-      </td>
-      <button className="boton btn btn-chech" type="submit">
-        Update
-      </button>
-    </form>
-  );
+
+  handleChange(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0]),
+    });
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <p className=" lead fw-normal text-white">Nombre de producto</p>
+        <input
+          className="general mb-2"
+          type="text"
+          name="nameProduc"
+          placeholder="Nombre producto"
+          defaultValue={this.props.nameProduc}
+          id="titulo"
+          aria-label="default input example"
+        />
+        <p className=" lead fw-normal text-white">description</p>
+        <input
+          className="general mb-2"
+          type="text"
+          name="description"
+          id="descripcion"
+          defaultValue={this.props.description}
+          placeholder="Descripción"
+        />
+        <td>
+          <tr>
+            <p className="lead fw-normal text-white">Precio</p>
+            <input
+              className="cantidad mb-2"
+              type="number"
+              name="amount"
+              placeholder="Precio"
+              id="precio"
+              defaultValue={this.props.price}
+              aria-label="default input example"
+            />
+          </tr>
+        </td>
+        <td>
+          <tr>
+            <p className="lead fw-normal text-white">Cantidad</p>
+            <input
+              className="cantidad mb-2"
+              type="number"
+              name="price"
+              id="cantidad"
+              placeholder="Cantidad"
+              defaultValue={this.props.amount}
+              aria-label="default input example"
+            />
+          </tr>
+        </td>
+        <button className="button" type="submit">
+          Update
+        </button>
+      </form>
+    );
+  }
 }
 
-export default Update;
+export default EditProduct;

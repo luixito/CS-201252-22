@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
-const Login = () => {
+const Register = () => {
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -74,7 +74,6 @@ const Login = () => {
         } else if (error.request) {
           console.log("error");
           console.log(error);
-          console.log(error.response.request._response);
           console.log(userData);
         } else {
           console.log(error);
@@ -120,4 +119,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -1,38 +1,42 @@
 import React from "react";
-import axios from "axios";
-import { useState as State } from "react";
+import Swal from "sweetalert2";
 
-function DelInfo({id}) {
-    const [idobjetivo, setId] = State();
+function DelInfo(props) {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log("id", props.id);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    const handleChange = (e) => {
-        setId(id);
-      };
+    var raw = JSON.stringify({
+      id: props.id,
+    });
 
-      const handleSubmit = (e) => {  
-        e.preventDefault();
-        handleChange();
+    var requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
 
-          axios
-            .delete(`http://localhost:3000/api/product/delete`,{},
-            {
-              params: {
-                id: idobjetivo,
-              }
-            })
-            .then((res) => {
-              console.log('resgood', res)
-            })
-            .catch((res) => {
-            console.log('id', idobjetivo);
-              console.log(res);
-            });
-    }
-        return(
-            <form  onSubmit={handleSubmit}>
-                <button className="btn btn-outline-dark">Del</button>
-            </form>
-        );
+    fetch("http://localhost:3000/api/product/delete", requestOptions)
+      .then((result) => {
+        console.log("result",result);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Eliminacionecitosa exitoso",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      })
+      .catch((error) => console.log("error", error));
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <button className="btn btn-outline-dark">Del</button>
+    </form>
+  );
 }
 
 export default DelInfo;

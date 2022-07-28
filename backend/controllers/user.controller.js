@@ -69,16 +69,16 @@ const user_login = async (req, res) => {
   }
 };
 
-const auten_acount = (req, res) => {
+const auten_acount =(req, res) => {
   const token = uuidv4();
   console.log(dataEnv.parsed.APYKEY);
   sgMail.setApiKey(dataEnv.parsed.APYKEY);
   const msg = {
     to: req.body.email,
-    from: "ClienteServidorUP@outlook.es",
+    from: "vilbom@outlook.es",
     subject: "Authentificacion de Cuenta",
     text: "Ingrese al link para autentificar su nueva cuenta de usuario",
-    html: `<ul><li><a href=http://localhost:3001/autenpass?email=${req.body.email}&${token}> Authentificar</a></li></ul>`,
+    html: `<ul><li><a href=http://localhost:3001/autenpass?${token}> Authentificar</a></li></ul>`,
   };
   sgMail
     .send(msg)
@@ -92,20 +92,6 @@ const auten_acount = (req, res) => {
           { fields: ["email", "token"] }
         ).then((data) => {
           res.send(data);
-          const user = getUser.UserRecovery.findOne({
-            where: { email: req.body.email },
-          })
-          if (user === null) {
-            console.log('Not found!');
-          } else {
-            res.header("Data recovery", token).json({
-              error: null,
-              data: {
-                token: token,
-                email: req.body.email,
-              },
-            });
-          }
         });
       }
     })
@@ -120,43 +106,29 @@ const recovery_password = (req, res) => {
   sgMail.setApiKey(dataEnv.parsed.APYKEY);
   const msg = {
     to: req.body.email,
-    from: "ClienteServidorUP@outlook.es",
+    from: "vilbom@outlook.es",
     subject: "Recupera Contraseña",
     text: "Recupera tu Contraseña",
     html: `<ul><li><a href=http://localhost:3001/recoverypass?${token}> Recuperar</a></li></ul>`,
   };
   sgMail
-    .send(msg)
-    .then((response) => {
-      if (response[0].statusCode === 202) {
-        getUser.UserRecovery.create(
-          {
-            email: req.body.email,
-            token,
-          },
-          { fields: ["email", "token"] }
-        ).then((data) => {
-          res.send(data);
-          const user = getUser.UserRecovery.findOne({
-            where: { email: req.body.email },
-          })
-          if (user === null) {
-            console.log('Not found!');
-          } else {
-            res.header("Data recovery", token).json({
-              error: null,
-              data: {
-                token: token,
-                email: req.body.email,
-              },
-            });
-          }
-        });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  .send(msg)
+  .then((response) => {
+    if (response[0].statusCode === 202) {
+      getUser.UserRecovery.create(
+        {
+          email: req.body.email,
+          token,
+        },
+        { fields: ["email", "token"] }
+      ).then((data) => {
+        res.send(data);
+      });
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 };
 
 const user_update_pass = (req, res) => {
@@ -169,7 +141,8 @@ const user_update_pass = (req, res) => {
   getUser.User.findOne({ where: { email: email } })
 
     .then((r) => {
-      r.update(newDatas);
+      r.update(newDatas); 
+      res.status(200).send("llego");
     })
     .catch((err) => {
       res.status(400).send(err);
@@ -177,13 +150,13 @@ const user_update_pass = (req, res) => {
 };
 
 const user_update = (req, res) => {
-  let email = req.body.email;
-  let newDatas = { authen:true };
+  let newDatas = { authen: true };
   console.log(newDatas);
-  getUser.User.findOne({ where: { email: email } })
+  getUser.User.findOne({ where: { email: req.body.email } })
 
     .then((r) => {
-      r.update(newDatas);
+      r.update(newDatas.authen);
+      res.status(200).send("Solicitud hecha")
     })
     .catch((err) => {
       res.status(400).send(err);
